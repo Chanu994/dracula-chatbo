@@ -1,0 +1,21 @@
+const twilio = require('twilio');
+require('dotenv').config();
+
+// Twilio credentials from your Twilio Console
+const accountSid = process.env.TWILIO_ACCOUNT_SID;
+const authToken = process.env.TWILIO_AUTH_TOKEN;
+
+const client = new twilio(accountSid, authToken);
+
+// Your WhatsApp number to link (replace with actual)
+const fromNumber = 'whatsapp:+14155238886'; // Twilio Sandbox Number
+const toNumber = 'whatsapp:+94762460133';   // Your phone number to link
+
+// Send a WhatsApp message
+client.messages.create({
+  body: 'Hello, this is a test message from your linked number!',
+  from: fromNumber,
+  to: toNumber
+})
+.then(message => console.log('Message sent:', message.sid))
+.catch(err => console.log('Error:', err));
